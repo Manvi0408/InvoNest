@@ -4,6 +4,49 @@
 
 ---
 
+## 📸 Screenshots
+
+<table>
+  <tr>
+    <td align="center">
+      <img src="landing..png" width="450"/>
+      <br/>
+      <sub><b>Landing Page</b></sub>
+    </td>
+    <td align="center">
+      <img src="platform in action.png" width="450"/>
+      <br/>
+      <sub><b>Platform in Action</b></sub>
+    </td>
+  </tr>
+
+  <tr>
+    <td align="center">
+      <img src="plans.png" width="450"/>
+      <br/>
+      <sub><b>Pragmatic Plans (Pricing)</b></sub>
+    </td>
+    <td align="center">
+      <img src="book demo.png" width="450"/>
+      <br/>
+      <sub><b>Book a Live Demo</b></sub>
+    </td>
+  </tr>
+
+  <tr>
+    <td align="center">
+      <img src="acc receivable legder.png" width="450"/>
+      <br/>
+      <sub><b>Accounts Receivable Ledger</b></sub>
+    </td>
+    <td align="center">
+      <img src="stack.png" width="450"/>
+      <br/>
+      <sub><b>Integrations Hub</b></sub>
+    </td>
+  </tr>
+</table>
+
 ## 🚀 Workspace Features
 
 1. **A/R Ledger & Status Manager**
