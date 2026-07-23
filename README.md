@@ -1,10 +1,74 @@
 # InvoNest ⚡
 
-**InvoNest** is an intelligent Accounts Receivable (A/R) lifecycle engine and collections automation manager. Designed to help finance divisions streamline cash operations, InvoNest leverages machine learning to predict payment risk, parse invoices using OCR, model solvency scenarios via a Digital Twin simulator, and automate reminder cycles.
+**InvoNest** is an AI-powered Accounts Receivable (A/R) lifecycle platform built to help finance teams automate invoice collections, monitor customer payment behavior, predict cash flow risks, and improve working capital. The platform combines OCR-powered invoice digitization, AI-driven risk scoring, financial forecasting, and automated reminder workflows into a single intelligent finance workspace.
+
+![Version](https://img.shields.io/badge/version-1.0.0-blue.svg)
+![Next.js](https://img.shields.io/badge/Next.js-15-black.svg)
+![NestJS](https://img.shields.io/badge/NestJS-11-E0234E.svg)
+![TypeScript](https://img.shields.io/badge/TypeScript-5.x-3178C6.svg)
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-16-336791.svg)
+![Prisma](https://img.shields.io/badge/Prisma-ORM-2D3748.svg)
+![License](https://img.shields.io/badge/License-MIT-green.svg)
 
 ---
 
-## 📸 Screenshots
+## 📑 Table of Contents
+
+- [Overview](#overview)
+- [Problem Statement](#problem-statement)
+- [Solution](#solution)
+- [Screenshots](#-screenshots)
+- [Key Features](#-key-features)
+- [System Architecture](#-system-architecture)
+- [Technology Stack](#-technology-stack)
+- [Application Workflow](#-application-workflow)
+- [API Endpoints](#-api-endpoints)
+- [Project Structure](#-project-structure)
+- [Installation](#-installation)
+- [Deployment](#-deployment)
+- [Future Enhancements](#-future-enhancements)
+- [License](#-license)
+
+---
+
+# Overview
+
+Managing outstanding invoices is one of the biggest operational challenges for finance teams. Businesses often struggle with delayed customer payments, fragmented invoice records, manual reminder processes, and poor cash flow visibility.
+
+InvoNest centralizes the complete Accounts Receivable lifecycle into a unified dashboard where finance teams can upload invoices, monitor payment statuses, predict collection risks, automate reminders, and simulate future financial outcomes.
+
+---
+
+# Problem Statement
+
+Traditional invoice collection systems suffer from:
+
+- Manual invoice entry
+- Lack of payment visibility
+- Delayed collections
+- No intelligent risk prediction
+- Poor cash flow forecasting
+- Manual follow-up emails
+- Multiple disconnected finance tools
+
+---
+
+# Solution
+
+InvoNest provides a centralized AI-powered finance workspace featuring:
+
+- OCR Invoice Processing
+- Accounts Receivable Ledger
+- AI CFO Copilot
+- Delay Risk Prediction
+- Financial Digital Twin Simulator
+- Automated Reminder Workflows
+- Payment Tracking
+- Interactive Analytics Dashboard
+
+---
+
+# 📸 Screenshots
 
 <table>
   <tr>
@@ -24,12 +88,12 @@
     <td align="center">
       <img src="plans.png" width="450"/>
       <br/>
-      <sub><b>Pragmatic Plans (Pricing)</b></sub>
+      <sub><b>Pricing Plans</b></sub>
     </td>
     <td align="center">
       <img src="book demo.png" width="450"/>
       <br/>
-      <sub><b>Book a Live Demo</b></sub>
+      <sub><b>Book Live Demo</b></sub>
     </td>
   </tr>
 
@@ -47,66 +111,174 @@
   </tr>
 </table>
 
-## 🚀 Workspace Features
+---
 
-1. **A/R Ledger & Status Manager**
-   * High-contrast dark green ledger table showing total outstanding invoices, due dates, risk scores, and current payment state.
-   * Real-time status updates via interactive dropdown cells (`DRAFT`, `SENT`, `VIEWED`, `DUE`, `OVERDUE`, `PAID`) syncing with the backend database.
-   * Integrated **Mock Payment Flow** simulating Stripe Checkout for instant invoice settlement and dynamic update of Recovery Rate KPIs.
+# 🚀 Key Features
 
-2. **AI Invoice OCR Scanner**
-   * Upload scanned invoices (PDF, PNG, JPG) using a native browser file selector.
-   * High-capacity payload processing (supporting up to 50MB documents).
-   * Extracts dates, amounts, billing credentials, and automatically populates the ledger.
+## AI Invoice OCR
 
-3. **AI CFO Copilot & Risk Engine**
-   * Real-time chat assistant querying outstanding balances, cash-flow risks, and operational hiring thresholds.
-   * Pre-packaged CFO queries for instant solvency checks and balance analyses.
-
-4. **Scenario Simulator (Financial Digital Twin)**
-   * Run scenarios (e.g. late customer payments, payroll hikes) to model runway solvency outcomes in real-time.
-
-5. **Automated collections cycles**
-   * Visually inspect email/WhatsApp automated escalation schedules inside the Documentation panel.
+- Upload PDF, PNG, and JPG invoices
+- Automatically extracts:
+  - Invoice Number
+  - Client Name
+  - Invoice Date
+  - Due Date
+  - Amount
+- Automatically inserts invoices into the ledger
 
 ---
 
-## 🏛️ Architecture
+## Accounts Receivable Ledger
 
-Below is the conceptual architecture flow of InvoNest's digital ledger audit and automated collections lifecycle system:
+Manage the complete invoice lifecycle.
 
+Supported statuses:
+
+- Draft
+- Sent
+- Viewed
+- Due
+- Overdue
+- Paid
+- Cancelled
+
+Track:
+
+- Outstanding invoices
+- Due invoices
+- Recovery status
+- Delay risk
+- Client balances
+
+---
+
+## AI CFO Copilot
+
+Ask questions like:
+
+- Which invoices are most at risk?
+- Can we afford another employee?
+- What is our projected cash flow?
+- Which customers should be contacted first?
+- How much money is expected this month?
+
+---
+
+## Delay Risk Prediction
+
+AI-powered payment behavior analysis.
+
+Provides:
+
+- Delay Risk %
+- Customer ranking
+- Recovery priority
+- Recommended follow-up actions
+
+---
+
+## Financial Digital Twin
+
+Run business simulations such as:
+
+- Customer payment delays
+- Hiring employees
+- Revenue changes
+- Payroll increases
+- Operating expense growth
+
+Forecast:
+
+- Cash runway
+- Working capital
+- Monthly cash flow
+- Collection timeline
+
+---
+
+## Reminder Automation
+
+Automatically schedule:
+
+- Email reminders
+- WhatsApp reminders
+
+Supports multiple reminder stages before and after due dates.
+
+---
+
+## Mock Payment Gateway
+
+Demonstrates a Stripe-like payment workflow.
+
+Features:
+
+- Mock payment confirmation
+- Automatic invoice settlement
+- Dashboard metric updates
+- Ledger synchronization
+
+---
+
+## Contact Sales
+
+Enterprise lead management including:
+
+- Demo requests
+- Company information
+- Business requirements
+- Lead storage
+
+---
+
+## Integrations Hub
+
+Supports integration with:
+
+- Stripe
+- Razorpay
+- QuickBooks
+- Xero
+- Gmail
+- Outlook
+- HubSpot
+- Slack
+
+---
+
+# 🏛️ System Architecture
 
 ```mermaid
 graph LR
 
 subgraph Frontend
-    A[Dashboard]
-    B[OCR Upload]
-    C[Accounts Receivable Ledger]
-    D[AI CFO Copilot]
-    E[Scenario Simulator]
-    F[Reminder Builder]
-    G[Contact Sales]
-    H[Mock Stripe Payment]
+A[Dashboard]
+B[OCR Upload]
+C[Accounts Receivable Ledger]
+D[AI CFO Copilot]
+E[Scenario Simulator]
+F[Reminder Builder]
+G[Contact Sales]
+H[Mock Stripe Payment]
 end
 
 subgraph Backend
-    I[Invoice Service]
-    J[OCR Engine]
-    K[Delay Risk Engine]
-    L[Cash Flow Forecast]
-    M[Reminder Scheduler]
-    N[Lead Management]
+I[Invoice Service]
+J[OCR Engine]
+K[Delay Risk Engine]
+L[Cash Flow Forecast]
+M[Reminder Scheduler]
+N[Lead Management]
 end
 
 subgraph Database
-    O[(PostgreSQL)]
+O[(PostgreSQL)]
 end
 
 subgraph External
-    P[SMTP Email]
-    Q[WhatsApp]
-    R[Gemini AI]
+P[SMTP]
+Q[WhatsApp]
+R[Gemini AI]
 end
 
 B --> J
@@ -135,88 +307,189 @@ L --> A
 R --> A
 ```
 
-## 📊 Accounts Receivable Ledger
-### List of Outstanding Billing Agreements
+---
 
-| Invoice # | Client | Amount | Due Date | Status | Delay Risk |
-| :--- | :--- | :--- | :--- | :--- | :--- |
-| **INV-9420** | ABC Corp | ₹53,100 | 2026-08-22 | `SENT` | **30%** |
-| **INV-8091** | ABC Corp | ₹53,100 | 2026-08-22 | `OVERDUE` | **30%** |
-| **INV-5631** | Acquirer Corp | ₹53,100 | 2026-08-22 | `DRAFT` | **30%** |
-| **INV-4493** | XYZ Ltd | ₹53,100 | 2026-08-22 | `DRAFT` | **30%** |
-| **INV-3002** | Acquirer Corp | ₹4,00,000 | 2026-07-11 | `OVERDUE` | **84%** |
+# 🛠 Technology Stack
+
+## Frontend
+
+- Next.js
+- React
+- TypeScript
+- Tailwind CSS
+- Framer Motion
+- Lucide React
+
+## Backend
+
+- NestJS
+- Express.js
+- Node.js
+
+## Database
+
+- PostgreSQL
+- Prisma ORM
+
+## AI & Automation
+
+- Google Gemini API
+- OCR Engine
+- Nodemailer
+- WhatsApp API (Mock)
 
 ---
 
-## 🛠️ Technology Stack
+# 🔄 Application Workflow
 
-* **Frontend**: Next.js (React 18), Tailwind CSS, Framer Motion, Lucide icons
-* **Backend**: NestJS (TypeScript), Express
-* **Database**: PostgreSQL (Prisma ORM)
-* **Local Mock Server**: PGlite / PostgreSQL mock instance
-
----
-
-## 💻 Local Quickstart
-
-### Prerequisites
-* Node.js (v18 or higher)
-* NPM
-
-### Setup Instructions
-
-1. **Clone the repository and install root dependencies**:
-   ```bash
-   cd invonest
-   npm install
-   ```
-
-2. **Configure local database**:
-   Configure database schema inside `backend/prisma/schema.prisma` and run:
-   ```bash
-   npm run prisma:generate
-   ```
-
-3. **Start the database and background servers**:
-   In separate terminals (or via concurrently):
-   
-   * **Start Database Server**:
-     ```bash
-     node pg-server.js
-     ```
-   * **Start Backend API (runs on port 3001)**:
-     ```bash
-     npm run dev:backend
-     ```
-   * **Start Frontend Client (runs on port 3000)**:
-     ```bash
-     npm run dev:frontend
-     ```
+```text
+Invoice Upload
+      │
+      ▼
+OCR Processing
+      │
+      ▼
+Invoice Parsed
+      │
+      ▼
+Stored in PostgreSQL
+      │
+      ▼
+Delay Risk Prediction
+      │
+      ▼
+Accounts Receivable Ledger
+      │
+      ▼
+AI CFO Analysis
+      │
+      ▼
+Reminder Automation
+      │
+      ▼
+Payment Received
+      │
+      ▼
+Invoice Marked as Paid
+```
 
 ---
 
-## 📡 Production Deployment Checklist
+# 📡 API Endpoints
 
-### Database (Supabase)
-1. Initialize a free PostgreSQL cluster on [Supabase](https://supabase.com).
-2. Copy the database connection URI string.
-
-### Backend (Render / Railway)
-1. Deploy `backend` root subfolder as a Node Web Service.
-2. Set Environment Variables:
-   * `DATABASE_URL`: `[Supabase connection URI]`
-   * `PORT`: `3001`
-   * `JWT_SECRET`: `[Secure key string]`
-3. Set Build command: `npm install && npm run build`
-4. Set Start command: `npx prisma db push && npm run start:prod`
-
-### Frontend (Vercel)
-1. Import repository and set root directory to `frontend`.
-2. Configure Environment Variable:
-   * `NEXT_PUBLIC_API_URL`: `[Deployed NestJS Backend Domain URL]`
-3. Deploy!
+| Method | Endpoint | Description |
+|---------|----------|-------------|
+| POST | `/api/invoices/upload` | Upload invoice |
+| GET | `/api/invoices` | Retrieve invoices |
+| PATCH | `/api/invoices/:id/status` | Update invoice status |
+| GET | `/api/risk` | Get delay risk analysis |
+| POST | `/api/copilot/chat` | AI CFO chat |
+| POST | `/api/scenario/simulate` | Run financial simulation |
+| POST | `/api/reminders/send` | Trigger reminders |
+| POST | `/api/payment/mock` | Mock payment |
+| POST | `/api/contact-sales` | Submit sales enquiry |
 
 ---
 
-## 📄 License
-This project is licensed under the MIT License.
+# 📂 Project Structure
+
+```text
+InvoNest
+│
+├── frontend
+│   ├── app
+│   ├── components
+│   ├── hooks
+│   ├── lib
+│   └── public
+│
+├── backend
+│   ├── controllers
+│   ├── routes
+│   ├── services
+│   ├── middleware
+│   ├── prisma
+│   └── utils
+│
+├── database
+│   └── PostgreSQL
+│
+└── README.md
+```
+
+---
+
+# 💻 Installation
+
+## Prerequisites
+
+- Node.js 18+
+- PostgreSQL
+- npm
+
+## Clone Repository
+
+```bash
+git clone https://github.com/your-username/InvoNest.git
+
+cd InvoNest
+```
+
+## Install Dependencies
+
+```bash
+npm install
+```
+
+## Configure Environment
+
+```env
+DATABASE_URL=
+GEMINI_API_KEY=
+JWT_SECRET=
+PORT=3001
+```
+
+## Start Development
+
+```bash
+npm run dev
+```
+
+---
+
+# 🚀 Deployment
+
+## Frontend
+
+- Vercel
+
+## Backend
+
+- Railway
+- Render
+
+## Database
+
+- PostgreSQL
+- Supabase
+
+---
+
+# 🔮 Future Enhancements
+
+- Stripe Checkout Integration
+- Razorpay Integration
+- QuickBooks Sync
+- Multi-tenant Workspaces
+- Team Roles & Permissions
+- AI Collections Agent
+- Voice-enabled CFO Assistant
+- Multi-currency Support
+- Predictive Machine Learning Models
+
+---
+
+# 📄 License
+
+This project is licensed under the **MIT License**
