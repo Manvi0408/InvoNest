@@ -32,7 +32,6 @@
 
 Below is the conceptual architecture flow of InvoNest's digital ledger audit and automated collections lifecycle system:
 
-## 🏛️ Architecture
 
 ```mermaid
 graph LR
