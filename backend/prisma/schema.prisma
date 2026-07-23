@@ -1,0 +1,289 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider   = "prisma-client-js"
+  engineType = "binary"
+}
+
+enum Role {
+  ADMIN
+  MEMBER
+  VIEWER
+}
+
+enum InvoiceStatus {
+  DRAFT
+  SENT
+  VIEWED
+  DUE
+  OVERDUE
+  PAID
+}
+
+enum PaymentMethod {
+  STRIPE
+  RAZORPAY
+  BANK_TRANSFER
+}
+
+enum ReminderChannel {
+  EMAIL
+  SMS
+  WHATSAPP
+}
+
+enum ReminderStatus {
+  SCHEDULED
+  SENT
+  FAILED
+}
+
+enum ReportType {
+  AGING
+  COLLECTIONS
+  CASHFLOW
+  RISK
+}
+
+model Organization {
+  id                String              @id @default(uuid())
+  name              String
+  slug              String              @unique
+  createdAt         DateTime            @default(now())
+  updatedAt         DateTime            @updatedAt
+  memberships       Membership[]
+  clients           Client[]
+  invoices          Invoice[]
+  cashflowForecasts CashflowForecast[]
+  notifications     Notification[]
+  auditLogs         AuditLog[]
+  reports           Report[]
+  aiConversations   AiConversation[]
+}
+
+model User {
+  id              String           @id @default(uuid())
+  email           String           @unique
+  passwordHash    String
+  firstName       String?
+  lastName        String?
+  createdAt       DateTime         @default(now())
+  updatedAt       DateTime         @updatedAt
+  memberships     Membership[]
+  notifications   Notification[]
+  auditLogs       AuditLog[]
+  aiConversations AiConversation[]
+}
+
+model Membership {
+  id             String       @id @default(uuid())
+  organizationId String
+  userId         String
+  role           Role         @default(MEMBER)
+  createdAt      DateTime     @default(now())
+  updatedAt      DateTime     @updatedAt
+  organization   Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  user           User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([organizationId, userId])
+}
+
+model Client {
+  id                 String             @id @default(uuid())
+  organizationId     String
+  name               String
+  email              String
+  phone              String?
+  companyName        String?
+  outstandingBalance Decimal            @default(0.0) @db.Decimal(15, 2)
+  createdAt          DateTime           @default(now())
+  updatedAt          DateTime           @updatedAt
+  organization       Organization       @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  riskProfile        ClientRiskProfile?
+  invoices           Invoice[]
+}
+
+model ClientRiskProfile {
+  id                     String    @id @default(uuid())
+  clientId               String    @unique
+  riskScore              Int       @default(0) // 0-100
+  riskLevel              String    @default("LOW") // LOW, MONITOR, RISKY, CRITICAL
+  averageDelayDays       Float     @default(0.0)
+  historicalBehavior     String?
+  outstandingDebt        Decimal   @default(0.0) @db.Decimal(15, 2)
+  paymentReliability     Int       @default(100) // 0-100
+  revenueContribution    Int       @default(0) // 0-100
+  creditworthinessLimit  Decimal   @default(0.0) @db.Decimal(15, 2)
+  creditScoreConfidence  Float     @default(0.0)
+  lastAssessmentAt       DateTime  @default(now())
+  createdAt              DateTime  @default(now())
+  updatedAt              DateTime  @updatedAt
+  client                 Client    @relation(fields: [clientId], references: [id], onDelete: Cascade)
+}
+
+model Invoice {
+  id             String           @id @default(uuid())
+  organizationId String
+  clientId       String
+  invoiceNumber  String
+  amount         Decimal          @db.Decimal(15, 2)
+  currency       String           @default("INR")
+  status         InvoiceStatus    @default(DRAFT)
+  issueDate      DateTime
+  dueDate        DateTime
+  paidAt         DateTime?
+  pdfUrl         String?
+  ocrConfidence  Float?
+  timeline       Json?            // Stores timeline events (Created -> Sent -> Viewed -> Reminder Sent -> Opened -> Paid)
+  comments       Json?            // Collaboration comments as JSON array
+  createdAt      DateTime         @default(now())
+  updatedAt      DateTime         @updatedAt
+  organization   Organization     @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  client         Client           @relation(fields: [clientId], references: [id], onDelete: Cascade)
+  items          InvoiceItem[]
+  payments       Payment[]
+  paymentLinks   PaymentLink[]
+  reminders      Reminder[]
+  riskPrediction RiskPrediction?
+
+  @@unique([organizationId, invoiceNumber])
+}
+
+model InvoiceItem {
+  id          String   @id @default(uuid())
+  invoiceId   String
+  description String
+  quantity    Decimal  @db.Decimal(10, 2)
+  unitPrice   Decimal  @db.Decimal(15, 2)
+  amount      Decimal  @db.Decimal(15, 2)
+  invoice     Invoice  @relation(fields: [invoiceId], references: [id], onDelete: Cascade)
+}
+
+model Payment {
+  id            String        @id @default(uuid())
+  invoiceId     String
+  amount        Decimal       @db.Decimal(15, 2)
+  paymentMethod PaymentMethod @default(BANK_TRANSFER)
+  transactionId String?
+  status        String        @default("SUCCESS")
+  processedAt   DateTime      @default(now())
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+  invoice       Invoice       @relation(fields: [invoiceId], references: [id], onDelete: Cascade)
+}
+
+model PaymentLink {
+  id        String   @id @default(uuid())
+  invoiceId String
+  url       String
+  active    Boolean  @default(true)
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  invoice   Invoice  @relation(fields: [invoiceId], references: [id], onDelete: Cascade)
+}
+
+model Reminder {
+  id           String          @id @default(uuid())
+  invoiceId    String
+  channel      ReminderChannel
+  scheduledFor DateTime
+  sentAt       DateTime?
+  status       ReminderStatus  @default(SCHEDULED)
+  createdAt    DateTime        @default(now())
+  updatedAt    DateTime        @updatedAt
+  invoice      Invoice         @relation(fields: [invoiceId], references: [id], onDelete: Cascade)
+  logs         ReminderLog[]
+}
+
+model ReminderLog {
+  id               String    @id @default(uuid())
+  reminderId       String
+  channel          ReminderChannel
+  recipient        String
+  content          String
+  status           String
+  responseMetadata Json?
+  createdAt        DateTime  @default(now())
+  reminder         Reminder  @relation(fields: [reminderId], references: [id], onDelete: Cascade)
+}
+
+model RiskPrediction {
+  id                   String   @id @default(uuid())
+  invoiceId            String   @unique
+  riskScore            Int      @default(0) // 0-100
+  predictedPaymentDate DateTime
+  probabilityCurve     Json     // Payment probability in 7d, 14d, 30d
+  factors              Json
+  confidence           Float    @default(0.0)
+  createdAt            DateTime @default(now())
+  updatedAt            DateTime @updatedAt
+  invoice              Invoice  @relation(fields: [invoiceId], references: [id], onDelete: Cascade)
+}
+
+model CashflowForecast {
+  id                     String       @id @default(uuid())
+  organizationId         String
+  forecastDate           DateTime
+  expectedCollections    Decimal      @db.Decimal(15, 2)
+  expectedRevenue        Decimal      @db.Decimal(15, 2)
+  atRiskRevenue          Decimal      @db.Decimal(15, 2)
+  predictedCashPosition  Decimal      @db.Decimal(15, 2)
+  confidenceBands        Json?        // Expected, Best, Worst case forecasts
+  confidence             Float        @default(0.0)
+  rangeDays              Int          @default(30)
+  createdAt              DateTime     @default(now())
+  organization           Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+}
+
+model Notification {
+  id             String       @id @default(uuid())
+  userId         String?
+  organizationId String
+  title          String
+  message        String
+  read           Boolean      @default(false)
+  type           String
+  createdAt      DateTime     @default(now())
+  organization   Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  user           User?        @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model AuditLog {
+  id             String       @id @default(uuid())
+  organizationId String
+  userId         String?
+  action         String
+  ipAddress      String?
+  userAgent      String?
+  metadata       Json?
+  createdAt      DateTime     @default(now())
+  organization   Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  user           User?        @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Report {
+  id             String       @id @default(uuid())
+  organizationId String
+  type           ReportType
+  generatedBy    String
+  fileUrl        String?
+  parameters     Json?
+  createdAt      DateTime     @default(now())
+  organization   Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+}
+
+model AiConversation {
+  id             String       @id @default(uuid())
+  organizationId String
+  userId         String
+  title          String
+  messages       Json // Store message history as array of objects
+  createdAt      DateTime     @default(now())
+  updatedAt      DateTime     @updatedAt
+  organization   Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  user           User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+}

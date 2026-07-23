@@ -1,0 +1,407 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Outfit:wght@300;400;500;600;700;800&display=swap');
+
+@font-face {
+  font-family: 'Brockmann';
+  src: url('https://adchitects.co/_next/static/media/brockmann_regular_webfont-s.p.0f1_6dhxo98hw.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'PP Mori';
+  src: url('https://adchitects.co/_next/static/media/PPMori_Regular-s.p.36ojup24d45dy.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: #f8fafc;
+  --foreground: #0d2227;
+  --border: rgba(13, 34, 39, 0.08);
+}
+
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: 'PP Mori', 'Plus Jakarta Sans', sans-serif;
+  overflow-x: hidden;
+  margin: 0;
+  padding: 0;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Brockmann', 'Outfit', sans-serif;
+  font-weight: 400;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #f8fafc;
+}
+::-webkit-scrollbar-thumb {
+  background: #abc6d8;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #97b3c5;
+}
+
+/* Glassmorphism Classes */
+.glass {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(13, 34, 39, 0.08);
+}
+
+.glass-premium {
+  background: radial-gradient(120% 120% at 50% 10%, rgba(255, 255, 255, 0.95) 0%, rgba(240, 244, 247, 0.98) 100%);
+  border: 1px solid rgba(13, 34, 39, 0.12);
+  box-shadow: 0 8px 32px 0 rgba(13, 34, 39, 0.08);
+}
+
+.glow-blue {
+  box-shadow: 0 0 40px -5px rgba(59, 130, 246, 0.1);
+}
+
+.glow-purple {
+  box-shadow: 0 0 40px -5px rgba(171, 198, 216, 0.15);
+}
+
+/* Custom animation gradients */
+.text-gradient {
+  background: linear-gradient(to right, #0d2227 30%, #507077 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.text-gradient-purple {
+  background: linear-gradient(to right, #c084fc, #6366f1);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Adchitects / Kaiterra Custom Styles */
+.bg-kaiterra-blue {
+  background-color: #abc6d8;
+}
+
+.bg-kaiterra-dark {
+  background-color: #0d2227;
+}
+
+.text-kaiterra-dark {
+  color: #0d2227;
+}
+
+.border-kaiterra-light {
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+.border-kaiterra-dark {
+  border-color: rgba(13, 34, 39, 0.15);
+}
+
+.font-editorial {
+  font-family: 'Brockmann', 'Outfit', sans-serif;
+  letter-spacing: -0.01em;
+}
+
+/* Dark Mode Override System */
+.dark {
+  --background: #09090b;
+  --foreground: #f4f4f5;
+  --border: rgba(255, 255, 255, 0.08);
+}
+
+.dark body {
+  background-color: #09090b !important;
+  color: #f4f4f5 !important;
+}
+
+/* Background overrides */
+.dark .bg-white {
+  background-color: #121214 !important;
+}
+.dark .bg-\[\#f0f4f7\] {
+  background-color: #1c1c1f !important;
+}
+.dark .bg-zinc-50 {
+  background-color: #121214 !important;
+}
+.dark .bg-zinc-100 {
+  background-color: #1c1c1f !important;
+}
+.dark .bg-zinc-200 {
+  background-color: #27272a !important;
+}
+
+/* Hardcoded main brand dark color */
+.dark .bg-\[\#0d2227\] {
+  background-color: #abc6d8 !important;
+  color: #09090b !important;
+}
+.dark .hover\:bg-black:hover {
+  background-color: #c4d7e4 !important;
+  color: #09090b !important;
+}
+
+/* Text overrides */
+.dark .text-\[\#0d2227\] {
+  color: #f4f4f5 !important;
+}
+.dark .text-\[\#0d2227\]\/80 {
+  color: rgba(244, 244, 245, 0.8) !important;
+}
+.dark .text-\[\#0d2227\]\/70 {
+  color: rgba(244, 244, 245, 0.7) !important;
+}
+.dark .text-\[\#0d2227\]\/60 {
+  color: rgba(244, 244, 245, 0.6) !important;
+}
+.dark .text-\[\#0d2227\]\/50 {
+  color: rgba(244, 244, 245, 0.5) !important;
+}
+.dark .text-\[\#0d2227\]\/85 {
+  color: rgba(244, 244, 245, 0.85) !important;
+}
+.dark .text-\[\#0d2227\]\/40 {
+  color: rgba(244, 244, 245, 0.45) !important;
+}
+.dark .text-zinc-600 {
+  color: #a1a1aa !important;
+}
+.dark .text-zinc-700 {
+  color: #d4d4d8 !important;
+}
+.dark .text-zinc-500 {
+  color: #71717a !important;
+}
+.dark .text-kaiterra-dark {
+  color: #f4f4f5 !important;
+}
+.dark .text-kaiterra-dark\/50 {
+  color: rgba(244, 244, 245, 0.5) !important;
+}
+
+/* Border overrides */
+.dark .border-\[\#0d2227\]\/15 {
+  border-color: rgba(255, 255, 255, 0.1) !important;
+}
+.dark .border-\[\#0d2227\]\/10 {
+  border-color: rgba(255, 255, 255, 0.08) !important;
+}
+.dark .border-zinc-200 {
+  border-color: rgba(255, 255, 255, 0.08) !important;
+}
+.dark .border-zinc-300 {
+  border-color: rgba(255, 255, 255, 0.12) !important;
+}
+.dark .border-kaiterra-dark\/10 {
+  border-color: rgba(255, 255, 255, 0.08) !important;
+}
+.dark .border-kaiterra-dark\/15 {
+  border-color: rgba(255, 255, 255, 0.1) !important;
+}
+.dark .border-kaiterra-dark\/20 {
+  border-color: rgba(255, 255, 255, 0.12) !important;
+}
+.dark .border-kaiterra-dark\/25 {
+  border-color: rgba(255, 255, 255, 0.15) !important;
+}
+
+/* Brand blue/light blue overrides */
+.dark .bg-\[\#abc6d8\]\/5 {
+  background-color: rgba(171, 198, 216, 0.02) !important;
+}
+.dark .bg-\[\#abc6d8\]\/15 {
+  background-color: rgba(171, 198, 216, 0.05) !important;
+}
+.dark aside.bg-\[\#abc6d8\]\/15 {
+  background-color: #0d2227 !important;
+}
+.dark .bg-\[\#abc6d8\]\/25 {
+  background-color: rgba(171, 198, 216, 0.1) !important;
+}
+.dark .bg-\[\#abc6d8\]\/30 {
+  background-color: rgba(171, 198, 216, 0.12) !important;
+}
+.dark .bg-\[\#abc6d8\]\/35 {
+  background-color: rgba(171, 198, 216, 0.15) !important;
+}
+
+/* Chart and graphic overrides */
+.dark svg path[stroke="#0d2227"] {
+  stroke: #abc6d8 !important;
+}
+.dark hr {
+  border-color: rgba(255, 255, 255, 0.08) !important;
+}
+
+/* Sub-page active links (navbar scrolled state) */
+.dark .text-black {
+  color: #ffffff !important;
+}
+.dark .hover\:text-black:hover {
+  color: #ffffff !important;
+}
+.dark .bg-white\/95 {
+  background-color: rgba(18, 18, 20, 0.95) !important;
+}
+.dark .shadow-sm {
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.5) !important;
+}
+.dark .shadow-2xl {
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7) !important;
+}
+
+/* Special cases for lists, details, and cards */
+.dark .bg-green-50 {
+  background-color: rgba(16, 185, 129, 0.05) !important;
+}
+.dark .text-green-700 {
+  color: #34d399 !important;
+}
+.dark .bg-red-50 {
+  background-color: rgba(239, 68, 68, 0.05) !important;
+}
+.dark .text-red-600 {
+  color: #f87171 !important;
+}
+
+/* Dashboard-specific cards & sidebar & Kaiterra Brand */
+.dark .bg-kaiterra-dark {
+  background-color: #09090b !important;
+}
+.dark .bg-kaiterra-blue {
+  background-color: #09090b !important;
+}
+.dark .text-kaiterra-dark {
+  color: #f4f4f5 !important;
+}
+.dark .border-kaiterra-dark {
+  border-color: rgba(255, 255, 255, 0.08) !important;
+}
+.dark .border-kaiterra-light {
+  border-color: rgba(255, 255, 255, 0.05) !important;
+}
+
+/* Additional Dark Mode Fixes */
+.dark .bg-\[\#f8fafc\] {
+  background-color: #09090b !important;
+}
+.dark .text-zinc-800 {
+  color: #e4e4e7 !important;
+}
+.dark .text-zinc-900 {
+  color: #f4f4f5 !important;
+}
+.dark .bg-teal-50 {
+  background-color: rgba(20, 184, 166, 0.05) !important;
+}
+.dark .text-teal-700 {
+  color: #2dd4bf !important;
+}
+.dark .bg-amber-50 {
+  background-color: rgba(245, 158, 11, 0.05) !important;
+}
+.dark .text-amber-700 {
+  color: #fbbf24 !important;
+}
+.dark .border-red-200 {
+  border-color: rgba(239, 68, 68, 0.2) !important;
+}
+.dark .border-amber-200 {
+  border-color: rgba(245, 158, 11, 0.2) !important;
+}
+.dark .border-teal-200 {
+  border-color: rgba(20, 184, 166, 0.2) !important;
+}
+.dark .border-\[\#0d2227\] {
+  border-color: #abc6d8 !important;
+}
+.dark .border-\[\#abc6d8\]\/40 {
+  border-color: rgba(171, 198, 216, 0.2) !important;
+}
+.dark .border-\[\#abc6d8\]\/20 {
+  border-color: rgba(171, 198, 216, 0.1) !important;
+}
+.dark .border-\[\#abc6d8\]\/50 {
+  border-color: rgba(171, 198, 216, 0.25) !important;
+}
+
+/* WhatsApp Modal Dark Mode */
+.dark .bg-\[\#FAF7F0\] {
+  background-color: #111b21 !important;
+}
+.dark .border-\[\#e5e0d8\] {
+  border-color: #222e35 !important;
+}
+.dark .bg-\[\#F0ECE3\] {
+  background-color: #202c33 !important;
+}
+.dark .border-\[\#e0dacd\] {
+  border-color: #2a3942 !important;
+}
+.dark .text-\[\#a16207\] {
+  color: #f59e0b !important;
+}
+.dark .text-blue-600 {
+  color: #3b82f6 !important;
+}
+
+/* Final CTA Section Dark Mode */
+.dark .final-cta {
+  background-color: #0d2227 !important;
+  border-top-color: rgba(255, 255, 255, 0.08) !important;
+}
+.dark .final-cta h2 {
+  color: #ffffff !important;
+}
+.dark .final-cta p {
+  color: rgba(255, 255, 255, 0.7) !important;
+}
+.dark .final-cta .bg-white\/80 {
+  background-color: rgba(255, 255, 255, 0.08) !important;
+  border-color: rgba(255, 255, 255, 0.15) !important;
+  color: #ffffff !important;
+}
+.dark .final-cta .bg-white\/80:hover {
+  background-color: rgba(255, 255, 255, 0.15) !important;
+}
+
+/* Glassmorphism Dark Mode Styling: Sleek Dark Green (Teal) theme */
+.dark .glass {
+  background: linear-gradient(135deg, rgba(13, 34, 39, 0.88) 0%, rgba(8, 22, 25, 0.94) 100%) !important;
+  backdrop-filter: blur(12px) !important;
+  -webkit-backdrop-filter: blur(12px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+}
+
+.dark .glass-premium {
+  background: radial-gradient(120% 120% at 50% 10%, rgba(13, 34, 39, 0.95) 0%, rgba(10, 25, 29, 0.98) 100%) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+}
+
+/* Text readability enhancement inside dark glass cards */
+.dark .glass .text-zinc-500,
+.dark .glass .text-zinc-400 {
+  color: rgba(255, 255, 255, 0.72) !important;
+}
+
+.dark .glass .text-zinc-600 {
+  color: rgba(255, 255, 255, 0.82) !important;
+}
+
+
+
