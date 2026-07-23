@@ -28,6 +28,69 @@
 
 ---
 
+## 🏛️ Architecture
+
+Below is the conceptual architecture flow of InvoNest's digital ledger audit and automated collections lifecycle system:
+
+```mermaid
+graph TD
+    subgraph Client Interface (Next.js)
+        UI[Web Frontend Dashboard]
+        OCR[Native File Upload]
+        Pay[Stripe Mock Payment Checkout]
+    end
+
+    subgraph Backend Core Service (NestJS API)
+        Route[Express Controller Endpoints]
+        OCREngine[OCR Parsing Controller]
+        RiskEng[ML Risk Score Engine]
+        CFOCopilot[AI CFO Copilot Chat Service]
+        Sim[Scenario Digital Twin Simulator]
+        Dunning[Automation Reminder Scheduler]
+    end
+
+    subgraph Data Store Layer
+        Prisma[Prisma Database Client]
+        DB[(PostgreSQL Database)]
+    end
+
+    subgraph Channels Gateway
+        Email[SMTP Mail Dispatcher]
+        WhatsApp[WhatsApp Reminder Gateway]
+    end
+
+    OCR -->|Base64 Document| OCREngine
+    Pay -->|Record Settlement| Route
+    UI -->|State Mutation Requests| Route
+    
+    OCREngine -->|Save invoice fields| Prisma
+    Route -->|Query Ledger| Prisma
+    RiskEng -->|Calculate Delay Risk| Prisma
+    CFOCopilot -->|Synthesize Solvency Forecast| Prisma
+    Sim -->|Run Solvency Projections| UI
+    
+    Prisma -->|Read/Write Operations| DB
+    
+    Dunning -->|Read Overdue Ledgers| Prisma
+    Dunning -->|Email Notifications| Email
+    Dunning -->|WhatsApp Notifications| WhatsApp
+```
+
+---
+
+## 📊 Accounts Receivable Ledger
+### List of Outstanding Billing Agreements
+
+| Invoice # | Client | Amount | Due Date | Status | Delay Risk |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| **INV-9420** | ABC Corp | ₹53,100 | 2026-08-22 | `SENT` | **30%** |
+| **INV-8091** | ABC Corp | ₹53,100 | 2026-08-22 | `OVERDUE` | **30%** |
+| **INV-5631** | Acquirer Corp | ₹53,100 | 2026-08-22 | `DRAFT` | **30%** |
+| **INV-4493** | XYZ Ltd | ₹53,100 | 2026-08-22 | `DRAFT` | **30%** |
+| **INV-3002** | Acquirer Corp | ₹4,00,000 | 2026-07-11 | `OVERDUE` | **84%** |
+
+---
+
 ## 🛠️ Technology Stack
 
 * **Frontend**: Next.js (React 18), Tailwind CSS, Framer Motion, Lucide icons
