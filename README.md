@@ -32,51 +32,66 @@
 
 Below is the conceptual architecture flow of InvoNest's digital ledger audit and automated collections lifecycle system:
 
+## 🏛️ Architecture
+
 ```mermaid
-graph TD
-    subgraph Client Interface (Next.js)
-        UI[Web Frontend Dashboard]
-        OCR[Native File Upload]
-        Pay[Stripe Mock Payment Checkout]
-    end
+graph LR
 
-    subgraph Backend Core Service (NestJS API)
-        Route[Express Controller Endpoints]
-        OCREngine[OCR Parsing Controller]
-        RiskEng[ML Risk Score Engine]
-        CFOCopilot[AI CFO Copilot Chat Service]
-        Sim[Scenario Digital Twin Simulator]
-        Dunning[Automation Reminder Scheduler]
-    end
+subgraph Frontend
+    A[Dashboard]
+    B[OCR Upload]
+    C[Accounts Receivable Ledger]
+    D[AI CFO Copilot]
+    E[Scenario Simulator]
+    F[Reminder Builder]
+    G[Contact Sales]
+    H[Mock Stripe Payment]
+end
 
-    subgraph Data Store Layer
-        Prisma[Prisma Database Client]
-        DB[(PostgreSQL Database)]
-    end
+subgraph Backend
+    I[Invoice Service]
+    J[OCR Engine]
+    K[Delay Risk Engine]
+    L[Cash Flow Forecast]
+    M[Reminder Scheduler]
+    N[Lead Management]
+end
 
-    subgraph Channels Gateway
-        Email[SMTP Mail Dispatcher]
-        WhatsApp[WhatsApp Reminder Gateway]
-    end
+subgraph Database
+    O[(PostgreSQL)]
+end
 
-    OCR -->|Base64 Document| OCREngine
-    Pay -->|Record Settlement| Route
-    UI -->|State Mutation Requests| Route
-    
-    OCREngine -->|Save invoice fields| Prisma
-    Route -->|Query Ledger| Prisma
-    RiskEng -->|Calculate Delay Risk| Prisma
-    CFOCopilot -->|Synthesize Solvency Forecast| Prisma
-    Sim -->|Run Solvency Projections| UI
-    
-    Prisma -->|Read/Write Operations| DB
-    
-    Dunning -->|Read Overdue Ledgers| Prisma
-    Dunning -->|Email Notifications| Email
-    Dunning -->|WhatsApp Notifications| WhatsApp
+subgraph External
+    P[SMTP Email]
+    Q[WhatsApp]
+    R[Gemini AI]
+end
+
+B --> J
+A --> I
+C --> I
+D --> R
+E --> L
+F --> M
+G --> N
+H --> I
+
+I --> O
+J --> O
+K --> O
+L --> O
+M --> O
+N --> O
+
+J --> K
+K --> L
+
+M --> P
+M --> Q
+
+L --> A
+R --> A
 ```
-
----
 
 ## 📊 Accounts Receivable Ledger
 ### List of Outstanding Billing Agreements
