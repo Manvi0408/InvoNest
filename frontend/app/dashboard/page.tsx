@@ -105,6 +105,8 @@ export default function DashboardOverview() {
     }
   ]);
 
+  const API_BASE = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001';
+
   // Selected invoice for detail panel
   const [selectedInvoiceId, setSelectedInvoiceId] = useState<string>('1');
   const selectedInvoice = invoices.find(inv => inv.id === selectedInvoiceId) || invoices[0];
@@ -141,13 +143,13 @@ export default function DashboardOverview() {
   useEffect(() => {
     async function initDashboard() {
       try {
-        const orgsRes = await fetch('http://localhost:3001/api/organizations');
+        const orgsRes = await fetch(`${API_BASE}/api/organizations`);
         if (orgsRes.ok) {
           const orgs = await orgsRes.json();
           if (orgs && orgs.length > 0) {
             const currentOrgId = orgs[0].id;
             setOrgId(currentOrgId);
-            const invsRes = await fetch(`http://localhost:3001/api/invoices/org/${currentOrgId}`);
+            const invsRes = await fetch(`${API_BASE}/api/invoices/org/${currentOrgId}`);
             if (invsRes.ok) {
               const invsData = await invsRes.json();
               if (invsData && invsData.length > 0) {
@@ -269,7 +271,7 @@ export default function DashboardOverview() {
   const handleMockPay = async () => {
     setIsPaying(true);
     try {
-      const res = await fetch(`http://localhost:3001/api/invoices/${selectedInvoice.id}/payments`, {
+      const res = await fetch(`${API_BASE}/api/invoices/${selectedInvoice.id}/payments`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -325,7 +327,7 @@ export default function DashboardOverview() {
         const base64Data = reader.result as string;
 
         try {
-          const res = await fetch('http://localhost:3001/api/ocr/upload', {
+          const res = await fetch(`${API_BASE}/api/ocr/upload`, {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
@@ -605,7 +607,7 @@ export default function DashboardOverview() {
                             setInvoices(prev => prev.map(item => item.id === inv.id ? { ...item, status: newStatus } : item));
                             
                             try {
-                              const res = await fetch(`http://localhost:3001/api/invoices/${inv.id}/status`, {
+                              const res = await fetch(`${API_BASE}/api/invoices/${inv.id}/status`, {
                                 method: 'PATCH',
                                 headers: { 'Content-Type': 'application/json' },
                                 body: JSON.stringify({ status: newStatus })
