@@ -303,7 +303,7 @@ export default function DashboardOverview() {
       setIsPaymentModalOpen(false);
     } catch (err) {
       console.error('Payment execution failed:', err);
-      alert(`Payment Processing Failed: ${err.message}`);
+      alert(`Payment Processing Failed: ${(err as any).message}`);
     } finally {
       setIsPaying(false);
     }
@@ -367,7 +367,7 @@ export default function DashboardOverview() {
           setSelectedInvoiceId(newInv.id);
         } catch (err) {
           console.error('OCR Upload Error:', err);
-          alert(`OCR Scan failed: ${err.message}`);
+          alert(`OCR Scan failed: ${(err as any).message}`);
         } finally {
           setIsUploading(false);
           setUploadProgress(0);
@@ -619,7 +619,7 @@ export default function DashboardOverview() {
                               console.error('Failed to update status on server:', err);
                               // Revert state if backend call fails
                               setInvoices(prev => prev.map(item => item.id === inv.id ? { ...item, status: inv.status } : item));
-                              alert(`Failed to update status: ${err.message}`);
+                              alert(`Failed to update status: ${(err as any).message}`);
                             }
                           }}
                           className={`px-2 py-0.5 rounded-[4px] text-[10px] font-bold border outline-none cursor-pointer ${
